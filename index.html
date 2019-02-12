@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Hangman</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card" style="width: 95%;">
+            <div class="card-body">
+                <h5 class="card-title">Word Guess Game</h5>
+                <h5 class="card-subtitle mb-2 text-muted">Instructions</h5>
+                <p class="card-text">This is the classic game we learned in grade school.</p>
+                <p> When you start a game, a word will be chosen for you to guess. The word will be any word; noun,
+                    pronoun, adjective, ... anything. Blanks and hyphens will be given. A general hint as to what type
+                    of word you are guessing will be provide by the game.</p>
+                <p> You may choose only keys a thru z and capitals.  The game will ignore any invalid keys.  You will have 6 attempts to guess the word. If you succeed, you will be rewarded, but if you fail,
+                    expect ridicule. Best of luck. Click "Start" to begin.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div style="visibility: hidden;" id="winner">
+                        <h3>You WIN!</h3>
+                        <img src="images/winner-clipart-1.jpg" alt="You are a champion!" >
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                        <div style="visibility:hidden;" id="loser">
+                        <h3>You LOSE!</h3>
+                        <img src="images/loser.jpg" alt="A huge disappointment!" >
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Wins:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="wins"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Losses:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="losses"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Correct:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="this-correct"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Incorrect:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="this-incorrect"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Type:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="this-hint"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="right">Definition:</h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 id="this-definition"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="images/start.png" id="g-image">
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                                <h5 class="card-title">Your word to guess</h5>
+                                <h4 class="card-text" id="currentword"></h4>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Letters Guessed</h5>
+                            <h4 class="card-text" id="guessedletters"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="btn-group btn-group-lg" role="group" aria-label="wordButtons">
+                <a id="buttonStart" type="button" class="btn btn-success btn-lg" onclick="startGame();" id="startButton">Start</a>
+                <!-- <a id="buttonQuit" type="button" class="btn btn-danger btn-lg" onclick="quitGame();" id="quitButton">Quit</a> -->
+                <a id="buttonAgain" type="button" class="btn btn-primary btn-lg" onclick="playAgain()" id="playAgainButton">Play Again</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="javascript/data.js"></script>
+    <script src="javascript/game.js"></script>
+    </body> 
+    </html >

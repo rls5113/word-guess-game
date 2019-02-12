@@ -1,0 +1,12 @@
+body {
+
+}
+
+.right {
+    text-align:right;
+}
+.bigText {
+    /* font-size: 3em; */
+    padding: 5px;
+    margin: 5px;
+}
